@@ -12,6 +12,8 @@
     --font-size-medium: 13px;
     --spacing-small: 5px;
     --spacing-medium: 10px;
+    --breakpoint-mobile: 480px;
+    --breakpoint-tablet: 768px;
   }
   
   .cardContainer {
@@ -25,6 +27,11 @@
     padding: var(--spacing-medium);
     box-shadow: 0 2px 4px var(--card-shadow-color);
     transition: box-shadow 0.3s ease;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
   }
   
   .cardContainer:hover {
@@ -59,17 +66,68 @@
   .cardTags {
     display: flex;
     align-items: center;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     gap: var(--spacing-small);
     margin-top: var(--spacing-small);
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none;  /* Internet Explorer 10+ */
+    padding-bottom: 5px;
   }
   
-  @media only screen and (max-width: 600px) {
+  .cardTags::-webkit-scrollbar { /* WebKit */
+    width: 0;
+    height: 0;
+  }
+
+  @media only screen and (max-width: 768px) {
     .cardContainer {
-      padding: var(--spacing-medium);
+      width: 100%; /* Full width on tablets and mobile */
+      padding: var(--spacing-small);
+      font-size: var(--font-size-small);
+      width: calc(50% - 10px); /* Adjust for 2 columns on tablets */
+    }
+    
+    .cardContainer > * {
+      font-size: calc(var(--font-size-small) - 1px);
     }
     
     .cardTags {
-      gap: 3px;
+      gap: 2px;
+    }
+    
+    .tags {
+      padding: 1px 4px;
+      margin: 1px;
+    }
+  }
+  
+  @media only screen and (max-width: 480px) {
+    :root {
+      --font-size-small: 10px;
+      --font-size-medium: 11px;
+      --spacing-small: 3px;
+      --spacing-medium: 8px;
+    }
+
+    .cardContainer {
+      width: 100%; /* Full width on mobile */
+      margin-bottom: var(--spacing-medium);
+      border-radius: var(--border-radius-small);
+      padding: var(--spacing-small);
+    }
+
+    .showStatus {
+      width: 8px;
+      height: 8px;
+    }
+    
+    .cardTitle {
+      font-size: var(--font-size-small);
+    }
+    
+    .tags {
+      font-size: calc(var(--font-size-small) - 1px);
     }
   }

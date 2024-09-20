@@ -11,24 +11,26 @@
   --border-radius: 10px;
   --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   --transition: all 0.3s ease;
+  --breakpoint-mobile: 480px;
+  --breakpoint-tablet: 768px;
+  --breakpoint-desktop: 1024px;
 }
 
 .dashContainer {
   display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
   align-items: flex-start;
   padding: var(--padding-large) var(--padding-medium) var(--padding-medium);
-  flex-wrap: wrap;
   background-color: var(--bg-color);
   min-height: 100vh;
   gap: var(--gap);
 }
 
 .dashCardContainer {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  width: var(--card-width);
-  gap: var(--padding-small);
+  flex: 1 1 var(--card-width);
+  min-width: 250px;
+  max-width: 100%;
   background-color: var(--card-bg-color);
   border-radius: var(--border-radius);
   box-shadow: var(--box-shadow);
@@ -60,30 +62,58 @@
   :root {
     --card-width: calc(33.333% - var(--gap));
   }
+  .dashContainer {
+    padding: var(--padding-medium);
+  }
 }
 
 @media screen and (max-width: 900px) {
+  .dashCardContainer {
+    flex: 1 1 calc(50% - var(--gap));
+    min-width: 200px;
+  }
   :root {
-    --card-width: calc(50% - var(--gap));
+    --padding-medium: 16px;
+    --padding-large: 24px;
   }
 }
 
 @media screen and (max-width: 600px) {
-  :root {
-    --card-width: 100%;
-    --gap: 16px;
-    --padding-small: 10px;
-    --padding-medium: 20px;
-    --padding-large: 28px;
+  .dashCardContainer {
+    flex: 1 1 100%;
   }
-
   .dashContainer {
-    padding: var(--padding-medium) var(--padding-small);
+    padding: var(--padding-small);
   }
+}
 
+@media screen and (max-width: 480px) {
+  .dashCardContainer {
+    padding: var(--padding-small);
+  }
+  :root {
+    --gap: 10px;
+    --padding-small: 8px;
+    --padding-medium: 12px;
+  }
   .dashCardHeading {
     flex-direction: column;
     align-items: flex-start;
-    gap: var(--padding-small);
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .dashCardContainer {
+    gap: 10px;
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  .dashContainer {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .dashCardContainer {
+    margin-bottom: var(--gap);
   }
 }
