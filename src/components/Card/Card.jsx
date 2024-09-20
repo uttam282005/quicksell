@@ -4,89 +4,93 @@ import { FaRegCircle } from "react-icons/fa6";
 import { IoMdCloseCircleOutline } from "react-icons/io";
 import { BiAdjust, BiLoader } from "react-icons/bi";
 import { BsCheckCircleFill, BsFillExclamationSquareFill } from "react-icons/bs";
+
 const Card = ({ id, title, tag, status, priority }) => {
   const isStatus = localStorage.getItem("group") === "status";
   const isPriority = localStorage.getItem("group") === "priority";
   const statusOrder = ['Backlog', 'Todo', 'In progress', 'Done'];
-  const getStatusIndex = (status) => {
-    return statusOrder.indexOf(status);
+
+  const getStatusIcon = (status) => {
+    switch (status) {
+      case "Backlog":
+        return <BiLoader style={{ fontSize: "16px" }} />;
+      case "Todo":
+        return <FaRegCircle style={{ fontSize: "15px", color: "#ddeded" }} />;
+      case "In progress":
+        return <BiAdjust style={{ fontSize: "16px", color: "#f2d750" }} />;
+      case "Done":
+        return <BsCheckCircleFill style={{ fontSize: "16px" }} />;
+      default:
+        return <IoMdCloseCircleOutline style={{ fontSize: "16px" }} />;
+    }
   };
+
+  const getPriorityIcon = (priority) => {
+    if (priority === 1 || priority === 2 || priority === 3) {
+      return (
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="32"
+          height="32"
+          fill="currentColor"
+          className="bi bi-signal"
+          viewBox="0 0 16 16"
+        >
+          <rect x="1" y="10" width="3" height="2" />
+          <rect
+            x="5"
+            y="7"
+            width="3"
+            height="5"
+            opacity={priority === 2 || priority === 3 ? 1 : 0.25}
+          />
+          <rect
+            x="9"
+            y="4"
+            width="3"
+            height="8"
+            opacity={priority === 3 ? 1 : 0.25}
+          />
+        </svg>
+      );
+    } else if (priority === 4) {
+      return <BsFillExclamationSquareFill style={{ fontSize: "16px" }} />;
+    }
+    return <p>...</p>;
+  };
+
   return (
-    <div className="cardContainer flex-gap-10" style={{ gap: "5px" }}>
+    <div className="cardContainer flex-gap-10" style={{ gap: "10px", padding: "12px" }}>
       <div className="cardHeading flex-sb">
-        <span style={{ textTransform: "uppercase" }} className="color-grey">
+        <span style={{ textTransform: "uppercase", fontWeight: "600" }} className="color-grey">
           {id}
         </span>
         <div
           className="imageContainer relative"
-          style={{ width: "30px", height: "30px" }}
+          style={{ width: "32px", height: "32px" }}
         >
           <img
-            style={{ width: "95%", height: "95%", borderRadius: "50%" }}
-            src="https://img.freepik.com/premium-photo/elevate-your-brand-with-friendly-avatar-that-reflects-professionalism-ideal-sales-managers_1283595-18531.jpg?size=338&ext=jpg&ga=GA1.1.2008272138.1726704000&semt=ais_hybrid"
+            style={{ width: "100%", height: "100%", borderRadius: "50%", objectFit: "cover" }}
+            src="https://img.freepik.com/premium-photo/elevate-your-brand-with-friendly-avatar-that-reflects-professionalism-ideal-sales-managers_1283595-18531.jpg?size=338&ext=jpg&ga=GA1.1.2008272138.1726704000&semt=ais"
             alt="UserImage"
           />
-          <div className="showStatus"></div>
+          <div className="showStatus" style={{ width: "10px", height: "10px", backgroundColor: "#22c55e", borderRadius: "50%", position: "absolute", bottom: "0", right: "0", border: "2px solid white" }}></div>
         </div>
       </div>
-      <div className="cardTitle" style={{ fontWeight: 200 }}>
-        {!isStatus &&
-          (
-            status === "Backlog" ? (
-              <BiLoader style={{ fontSize: "14px" }} />
-            )
-              : status === "Todo" ? (
-                <FaRegCircle style={{ fontSize: "13px", color: "#ddeded" }} />
-              ) : status === "In progress" ? (
-                <BiAdjust style={{ fontSize: "14px", color: "#f2d750" }} />
-              ) : status === "Done" ? (
-                <BsCheckCircleFill />
-              )
-                : (
-                  <IoMdCloseCircleOutline />
-                ))}
-        <span style={{ margin: "0.2px" }}>{title}</span>
+      <div className="cardTitle" style={{ fontWeight: 500, display: "flex", alignItems: "center", gap: "8px" }}>
+        {!isStatus && getStatusIcon(status)}
+        <span>{title}</span>
       </div>
-      <div className="cardTags">
-        {!isPriority ? (
+      <div className="cardTags" style={{ display: "flex", flexWrap: "wrap", gap: "8px", alignItems: "center" }}>
+        {!isPriority && (
           <div className="tags color-grey">
-            {priority === 1 || priority === 2 || priority === 3 ? (
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="30"
-                height="30"
-                fill="currentColor"
-                className="bi bi-signal"
-                viewBox="0 0 16 16"
-              >
-                <rect x="1" y="10" width="3" height="2" />
-                <rect
-                  x="5"
-                  y="7"
-                  width="3"
-                  height="5"
-                  opacity={priority === 2 || priority === 3 ? 1 : 0.25}
-                />
-                <rect
-                  x="9"
-                  y="4"
-                  width="3"
-                  height="8"
-                  opacity={priority === 3 ? 1 : 0.25}
-                />
-              </svg>
-            ) : priority === 4 ? (
-              <BsFillExclamationSquareFill />
-            ) : (
-              <p>...</p>
-            )}
+            {getPriorityIcon(priority)}
           </div>
-        ) : null}
+        )}
         {tag?.map((element, index) => {
           return (
-            <div key={index} className="tags color-grey">
-              {" "}
-              <span>•</span> {element}
+            <div key={index} className="tags color-grey" style={{ display: "flex", alignItems: "center", gap: "4px" }}>
+              <span style={{ fontSize: "20px", lineHeight: "0" }}>•</span> {element}
             </div>
           );
         })}
@@ -94,4 +98,5 @@ const Card = ({ id, title, tag, status, priority }) => {
     </div>
   );
 };
+
 export default Card;
