@@ -1,0 +1,138 @@
+:root {
+    --primary-color: #3498db;
+    --secondary-color: #2c3e50;
+    --background-color: #f8f9fa;
+    --text-color: #333333;
+    --border-color: #e0e0e0;
+    --hover-color: #f0f0f0;
+    --focus-color: rgba(52, 152, 219, 0.2);
+    --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --transition: all 0.3s ease;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+}
+
+.selectGroup {
+    padding: 10px;
+    width: 100%;
+    max-width: 300px;
+    margin-bottom: 24px;
+}
+
+.selectGroup:last-child {
+    margin-bottom: 0;
+}
+
+.selectGroup label {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--secondary-color);
+    margin-bottom: px;
+}
+
+.displayButton {
+    position: relative;
+}
+
+.dropOnClick {
+    position: absolute;
+    width: 300px;
+    background-color: #ffffff;
+    border-radius: 12px;
+    margin-top: 15px;
+    z-index: 10;
+    box-shadow: var(--box-shadow);
+    border: 1px solid var(--border-color);
+    padding: 20px;
+    transition: var(--transition);
+}
+
+.dropOnClick::before {
+    content: '';
+    position: absolute;
+    top: -8px;
+    left: 20px;
+    width: 16px;
+    height: 16px;
+    background-color: #ffffff;
+    transform: rotate(45deg);
+    border-left: 1px solid var(--border-color);
+    border-top: 1px solid var(--border-color);
+}
+
+.btn {
+    background: #ffffff;
+    border: 2px solid var(--primary-color);
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--primary-color);
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.btn:hover {
+    background: var(--primary-color);
+    color: #ffffff;
+}
+
+.selectStyle {
+    width: 100%;
+    border-radius: 8px;
+    background: #ffffff;
+    border: 2px solid var(--border-color);
+    padding: 12px 15px;
+    font-size: 14px;
+    color: var(--text-color);
+    appearance: none;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.selectStyle:hover {
+    background: var(--hover-color);
+}
+
+.selectStyle:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 4px var(--focus-color);
+}
+
+.selectWrapper {
+    position: relative;
+}
+
+.selectWrapper::after {
+    content: '\25BC';
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    transform: translateY(-50%);
+    color: var(--secondary-color);
+    pointer-events: none;
+    transition: var(--transition);
+}
+
+.selectWrapper:hover::after {
+    color: var(--primary-color);
+}
+
+/* Responsive Styles */
+@media only screen and (max-width: 768px) {
+    .dropOnClick {
+        width: calc(100vw - 40px);
+        max-width: 300px;
+        right: 20px;
+    }
+    
+    .selectGroup {
+        max-width: 100%;
+    }
+}

@@ -1,0 +1,75 @@
+:root {
+    --card-border-color: #d6d5d5;
+    --card-bg-color: #ffffff;
+    --card-text-color: #000000;
+    --card-shadow-color: #f4f5f8;
+    --tag-border-color: #f4f5f8;
+    --tag-text-color: #7d7d7d;
+    --status-color: #22ff01;
+    --border-radius-small: 5px;
+    --border-radius-large: 10px;
+    --font-size-small: 12px;
+    --font-size-medium: 13px;
+    --spacing-small: 5px;
+    --spacing-medium: 10px;
+  }
+  
+  .cardContainer {
+    width: 100%;
+    border: 1px solid var(--card-border-color);
+    color: var(--card-text-color);
+    font-weight: bold;
+    border-radius: var(--border-radius-large);
+    background: var(--card-bg-color);
+    font-size: var(--font-size-medium);
+    padding: var(--spacing-medium);
+    box-shadow: 0 2px 4px var(--card-shadow-color);
+    transition: box-shadow 0.3s ease;
+  }
+  
+  .cardContainer:hover {
+    box-shadow: 0 4px 8px var(--card-shadow-color);
+  }
+  
+  .cardContainer > * {
+    font-size: var(--font-size-small);
+    width: 100%;
+  }
+  
+  .showStatus {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 10px;
+    height: 10px;
+    background: var(--status-color);
+    border-radius: 50%;
+  }
+  
+  .tags {
+    display: inline-block;
+    font-size: var(--font-size-small);
+    border-radius: var(--border-radius-small);
+    border: 1px solid var(--tag-border-color);
+    color: var(--tag-text-color);
+    padding: 2px 6px;
+    margin: 2px;
+  }
+  
+  .cardTags {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--spacing-small);
+    margin-top: var(--spacing-small);
+  }
+  
+  @media only screen and (max-width: 600px) {
+    .cardContainer {
+      padding: var(--spacing-medium);
+    }
+    
+    .cardTags {
+      gap: 3px;
+    }
+  }
